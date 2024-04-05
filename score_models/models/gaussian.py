@@ -6,13 +6,13 @@ from jax import jacfwd
 from jax import numpy as np
 from jax import vmap
 from jax.scipy.stats import norm
-
+from dataclasses import field
 
 class GaussianModel(eqx.Module):
     """Univariate Gaussian score function."""
 
-    mu: np.array = np.array(0.0)
-    log_sigma: np.array = np.array(0.0)
+    mu: np.array = field(default_factory = lambda: np.array(0.0))
+    log_sigma: np.array = field(default_factory = lambda: np.array(0.0))
 
     @eqx.filter_jit
     def __call__(self, x):
